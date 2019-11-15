@@ -77,4 +77,24 @@ export default class LineaPro {
     scanRf() {
         Linea.scanRfId();
     }
+
+    getBatteryCapacity() {
+        return Linea.getBatteryCapacity();
+    }
+
+    getCharging() {
+        return Linea.getCharging();
+    }
+
+    getUSBChargeCurrent() {
+        return Linea.getUSBChargeCurrent();
+    }
+
+    setCharging(enabled) {
+        Linea.setCharging(enabled);
+    }
+
+    setUSBChargeCurrent(current) {
+        Linea.setUSBChargeCurrent(current);
+    }
 }

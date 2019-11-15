@@ -105,6 +105,64 @@ RCT_EXPORT_METHOD(playSound:(int) volume beepData:(NSArray *) beepData) {
     [linea playSound:volume beepData:finalData length:sizeof(finalData) error:nil];
 }
 
+RCT_REMAP_METHOD(getBatteryCapacity,
+                  getBatteryCapacityResolver:(RCTPromiseResolveBlock)resolve
+                  getBatteryCapacityRejecter:(RCTPromiseRejectBlock)reject)
+{
+    
+    int capacity;
+    float voltage;
+
+    if([linea getBatteryCapacity:&capacity voltage:&voltage error:nil]) {
+        resolve(@{
+            @"capacity": @(capacity),
+            @"voltage": @(voltage)
+        });
+    } else {
+        reject(@"failed", @"failed", nil);
+    }
+}
+
+RCT_REMAP_METHOD(getCharging,
+                  getChargingResolver:(RCTPromiseResolveBlock)resolve
+                  getChargingRejecter:(RCTPromiseRejectBlock)reject)
+{
+    
+    BOOL charging;
+
+    if([linea getCharging:&charging error:nil]) {
+        resolve(@{
+            @"charging": @(charging)
+        });
+    } else {
+        reject(@"failed", @"failed", nil);
+    }
+}
+
+RCT_REMAP_METHOD(getUSBChargeCurrent,
+                  getUSBChargeCurrentResolver:(RCTPromiseResolveBlock)resolve
+                  getUSBChargeCurrentRejecter:(RCTPromiseRejectBlock)reject)
+{
+    
+    int current;
+
+    if([linea getUSBChargeCurrent:&current error:nil]) {
+        resolve(@{
+            @"current": @(current)
+        });
+    } else {
+        reject(@"failed", @"failed", nil);
+    }
+}
+
+RCT_EXPORT_METHOD(setCharging:(BOOL) enabled) {
+    [linea setCharging:enabled error:nil];
+}
+
+RCT_EXPORT_METHOD(setUSBChargeCurrent:(int) current) {
+    [linea setUSBChargeCurrent:current error:nil];
+}
+
 #pragma mark DTDevices delegates
 
 - (void)rfCardDetected:(int)cardIndex info:(DTRFCardInfo *)info {
