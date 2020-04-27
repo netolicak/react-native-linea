@@ -17,7 +17,9 @@ Pod::Spec.new do |s|
   s.platform       = :ios, '9.0'
 
   s.preserve_paths = 'LICENSE', 'README.md', 'package.json', 'LineaPro.js', 'NativeBridges.js'
-  s.source_files   = 'DTDevices.h', 'react-native-linea/*.{h,m}'
+  s.source_files         = '*.{h,m}','react-native-linea/*.{h,m}'
+  s.vendored_libraries   = 'libdtdev.a'
+  s.frameworks           = 'ExternalAccessory', 'CoreLocation'
 
   s.dependency 'React'
 end
